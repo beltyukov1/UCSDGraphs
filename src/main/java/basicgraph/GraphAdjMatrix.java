@@ -1,10 +1,6 @@
 package basicgraph;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /** A class that implements a directed graph. 
  * The graph may have self-loops, parallel edges. 
@@ -104,10 +100,45 @@ public class GraphAdjMatrix extends Graph {
 	 * @return List<Integer> a list of indices of vertices.  
 	 */	
 	public List<Integer> getDistance2(int v) {
-		// XXX Implement this method in week 1
-		return null;
+        List<Integer> twoHopNeighbors = new ArrayList<>();
+
+        int[][] squaredMatrix = squareMatrix(adjMatrix);
+        int[] rowToScan = squaredMatrix[v];
+
+        int index = 0;
+        for (int column : rowToScan) {
+            if (column > 0) {
+                for (int columnCount = 0; columnCount < column; columnCount++) {
+                    twoHopNeighbors.add(index);
+                }
+            }
+            index++;
+        }
+
+		return twoHopNeighbors;
 	}
-	
+
+	private int[][] squareMatrix(int[][] inputMatrix) { // O(n^3)
+		int[][] resultingMatrix = new int[inputMatrix.length][inputMatrix.length];
+		for (int i = 0; i < resultingMatrix.length; i++) { // O(n)
+			for (int j = 0; j < resultingMatrix.length; j++) { // O(n)
+			    int[] row = inputMatrix[i];
+			    int[] column = new int[row.length];
+			    for (int columnIndex = 0; columnIndex < row.length; columnIndex++) { // O(n)
+			        column[columnIndex] = inputMatrix[columnIndex][j];
+                }
+
+                int sum = 0;
+                for (int x = 0; x < row.length; x++) { // O(n)
+			        sum += (row[x] * column[x]);
+                }
+				resultingMatrix[i][j] = sum;
+			}
+		}
+
+		return resultingMatrix;
+	}
+
 	/**
 	 * Generate string representation of adjacency matrix
 	 * @return the String
@@ -124,6 +155,4 @@ public class GraphAdjMatrix extends Graph {
 		}
 		return s;
 	}
-
-
 }

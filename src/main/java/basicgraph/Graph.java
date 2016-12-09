@@ -1,12 +1,6 @@
 package basicgraph;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 import util.GraphLoader;
 
@@ -270,9 +264,14 @@ public abstract class Graph {
 		//For testing Part 2 functionality
 		// Test your distance2 code here.
 		System.out.println("Testing distance-two methods on sample graphs...");
-		System.out.println("Goal: implement method using two approaches.");
+        Graph adjacencyList = new GraphAdjList();
+        GraphLoader.loadRoadMap("data/testdata/simpletest.map", adjacencyList);
+        System.out.println(adjacencyList);
+        System.out.println(adjacencyList.getDistance2(5));
 
-
-		
-	}
+        Graph adjacencyMatrix = new GraphAdjMatrix();
+        GraphLoader.loadRoadMap("data/testdata/simpletest.map", adjacencyMatrix);
+        System.out.println(adjacencyMatrix);
+        System.out.println(adjacencyMatrix.getDistance2(5));
+    }
 }
