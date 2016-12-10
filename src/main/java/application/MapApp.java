@@ -158,7 +158,7 @@ implements MapComponentInitializedListener {
 		bp.setCenter(mapComponent);
 
 		Scene scene = new Scene(bp);
-		scene.getStylesheets().add(MapApp.class.getResource("/html/routing.css").getFile());
+		scene.getStylesheets().add(MapApp.class.getResource("/html/routing.css").toExternalForm());
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
